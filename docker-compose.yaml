@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  # 1. Zookeeper (Required for Kafka)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '2181:2181'
+
+  # 2. Kafka (The Streaming Broker)
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    ports:
+      - '9092:9092'
+    depends_on:
+      - zookeeper
+
+  # 3. Spark Master (The Brain)
+  spark-master:
+    image: bde2020/spark-master:3.3.0-hadoop3.3
+    ports:
+      - "8080:8080" # Spark UI
+      - "7077:7077" # Spark Master Port
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+
+  # 4. Spark Worker (The Muscle)
+  spark-worker:
+    image: bde2020/spark-worker:3.3.0-hadoop3.3
+    depends_on:
+      - spark-master
+    ports:
+      - "8081:8081"
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+
+  # 5. Jupyter Lab (Where you write code)
+  jupyter:
+    image: jupyter/pyspark-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work  # Maps your local folder to the container
+      - ./data:/home/jovyan/data       # Maps your data folder so Spark can see it
+    environment:
+      - JUPYTER_TOKEN=nyucs            # Password to log in
+    depends_on:
+      - spark-master
+
+  # 6. MongoDB (Storage)
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"

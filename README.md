@@ -77,23 +77,20 @@ All services are running in Docker containers:
 - [x] Detailed attack type labels intact
 - [x] Added simulated timestamp for real-time processing
 
----
-
-## 🔄 What Is Still Remaining
-
 ### Phase 3: Spark Streaming Consumer
-**Status**: Not Started
 
 **Tasks**:
-- [ ] Create Spark Structured Streaming consumer
-- [ ] Connect Spark to Kafka topic `network-traffic`
-- [ ] Parse JSON messages in Spark
-- [ ] Implement real-time data transformations
-- [ ] Handle data cleaning and feature engineering
+- [x] Create Spark Structured Streaming consumer
+- [x] Parse JSON messages in Spark
+- [x] Implement real-time data transformations
+- [x] Handle data cleaning and feature engineering
 
 **Files to Create**:
 - `src/spark_consumer.py` - Main Spark streaming application
 - `notebooks/01_spark_streaming_setup.ipynb` - Interactive development
+---
+
+## 🔄 What Is Still Remaining
 
 ### Phase 4: Feature Engineering
 **Status**: Not Started

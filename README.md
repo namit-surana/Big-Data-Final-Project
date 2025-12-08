@@ -93,17 +93,17 @@ All services are running in Docker containers:
 ## 🔄 What Is Still Remaining
 
 ### Phase 4: Feature Engineering
-**Status**: Not Started
+**Status**: Completed ✅
 
 **Tasks**:
-- [ ] Analyze dataset features (23 columns)
-- [ ] Handle missing values (duration, bytes can be "-")
-- [ ] Convert categorical features (proto, conn_state, etc.)
-- [ ] Create time-based features from timestamps
-- [ ] Normalize numerical features
-- [ ] Feature selection for ML model
+- [x] Analyze dataset features (23 columns)
+- [x] Handle missing values (duration, bytes can be "-")
+- [x] Convert categorical features (proto, conn_state, etc.)
+- [x] Create time-based features from timestamps
+- [x] Normalize numerical features
+- [x] Feature selection for ML model
 
-**Files to Create**:
+**Files Created**:
 - `notebooks/02_exploratory_analysis.ipynb` - EDA
 - `notebooks/03_feature_engineering.ipynb` - Feature processing
 

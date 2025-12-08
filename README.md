@@ -262,10 +262,10 @@ Each message in Kafka has the following structure:
 |-------|--------|----------------|
 | Infrastructure Setup | ✅ Complete | - |
 | Data Streaming | ✅ Complete | - |
-| Spark Consumer | 🔄 Next | 2-3 hours |
-| Feature Engineering | ⏳ Pending | 3-4 hours |
-| Model Training | ⏳ Pending | 4-6 hours |
-| Real-Time Prediction | ⏳ Pending | 3-4 hours |
+| Spark Consumer | ✅ Complete | - |
+| Feature Engineering | ✅ Complete | - |
+| Model Training | ✅ Complete | - |
+| Real-Time Prediction | 🔄 Next | 3-4 hours |
 | Visualization | ⏳ Pending | 2-3 hours |
 | Testing & Optimization | ⏳ Pending | 2-3 hours |
 

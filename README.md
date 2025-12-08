@@ -125,16 +125,16 @@ All services are running in Docker containers:
 - `models/` - Directory for saved models
 
 ### Phase 6: Real-Time Prediction Pipeline
-**Status**: Not Started
+**Status**: Completed ✅
 
 **Tasks**:
-- [ ] Load trained model in Spark streaming
-- [ ] Apply model to incoming data in real-time
-- [ ] Generate predictions (Malicious/Benign)
-- [ ] Calculate confidence scores
-- [ ] Store predictions in MongoDB
+- [x] Load trained model in Spark streaming
+- [x] Apply model to incoming data in real-time
+- [x] Generate predictions (Malicious/Benign)
+- [x] Calculate confidence scores
+- [x] Store predictions in MongoDB
 
-**Files to Create**:
+**Files Created**:
 - `src/realtime_predictor.py` - Production streaming app
 
 ### Phase 7: Results Storage & Visualization
@@ -265,8 +265,8 @@ Each message in Kafka has the following structure:
 | Spark Consumer | ✅ Complete | - |
 | Feature Engineering | ✅ Complete | - |
 | Model Training | ✅ Complete | - |
-| Real-Time Prediction | 🔄 Next | 3-4 hours |
-| Visualization | ⏳ Pending | 2-3 hours |
+| Real-Time Prediction | ✅ Complete | - |
+| Visualization | 🔄 Next | 2-3 hours |
 | Testing & Optimization | ⏳ Pending | 2-3 hours |
 
 ---

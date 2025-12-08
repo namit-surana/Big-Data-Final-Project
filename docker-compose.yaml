@@ -16,6 +16,8 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # Increase Kafka Heap Memory
+      KAFKA_HEAP_OPTS: "-Xmx1G -Xms1G"
       # Dual listeners: INTERNAL for containers, EXTERNAL for host
       KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
@@ -47,6 +49,8 @@ services:
       - "8081:8081"
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
+      - "SPARK_WORKER_MEMORY=4G"  # Increased from default
+      - "SPARK_WORKER_CORES=2"    # Explicitly set cores
 
   # 5. Jupyter Lab (Where you write code)
   jupyter:
@@ -56,8 +60,11 @@ services:
     volumes:
       - ./notebooks:/home/jovyan/work  # Maps your local folder to the container
       - ./data:/home/jovyan/data       # Maps your data folder so Spark can see it
+      - ./models:/home/jovyan/models   # Maps models folder
+      - ./src:/home/jovyan/src         # Maps src folder
     environment:
       - JUPYTER_TOKEN=nyucs            # Password to log in
+      - SPARK_DRIVER_MEMORY=2G         # Increased driver memory
     depends_on:
       - spark-master
 

@@ -73,3 +73,15 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
+
+  # 7. Dashboard App (Real-Time Analytics)
+  streamlit:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./streamlit_app:/app
+    command: bash -c "pip install -r requirements.txt && streamlit run app.py --server.port 8501 --server.address 0.0.0.0"
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mongo

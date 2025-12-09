@@ -80,7 +80,7 @@ All services are running in Docker containers:
 - [x] Detailed attack type labels intact
 - [x] Added simulated timestamp for real-time processing
 
-### Phase 3: Spark Streaming Consumer
+### Phase 3: Spark Streaming Consumer ✅
 
 **Tasks**:
 - [x] Create Spark Structured Streaming consumer
@@ -157,14 +157,14 @@ All services are running in Docker containers:
 - `streamlit_app/app.py` - Real-time Dashboard
 
 ### Phase 8: Testing & Optimization
-**Status**: Not Started
+**Status**: Completed ✅
 
 **Tasks**:
-- [ ] Test with larger datasets (1.3GB file)
-- [ ] Optimize Spark configuration
-- [ ] Tune batch intervals for latency
-- [ ] Benchmark throughput
-- [ ] Handle backpressure and failures
+- [x] Test with larger datasets (1.3GB file)
+- [x] Optimize Spark configuration
+- [x] Tune batch intervals for latency
+- [x] Benchmark throughput
+- [x] Handle backpressure and failures
 
 ---
 

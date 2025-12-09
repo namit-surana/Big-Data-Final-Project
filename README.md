@@ -207,14 +207,41 @@ docker exec finalproject-kafka-1 kafka-console-consumer \
 3. Navigate to `/work` to see your notebooks folder
 4. Access data at `/data` (mounted from local)
 
-### 6. Run the Dashboard
+
+
+---
+
+## Setting Up Web Dashboard
+
+### 0. Setups
+1. Run the quickstart guide
+2. Run every notebook under the notebooks folder in Jupyter Lab
+
+### 1. Run the Dashboard on host machine
 ```bash
 cd streamlit_app
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
+### 2. Run Predictor
+In Jupyter Lab Terminal: 
+```bash
+pip install -r src/requirements.txt
+python src/realtime_predictor.py
+```
+
+### 3. Run Predictor Again
+In **seperate** Jupyter Lab Terminal: 
+```bash
+python src/producer.py
+```
+
+### 4. Check Web App Results
+On **host machine**, open localhost:8501
+
 ---
+
 
 ## Data Schema
 

@@ -1,6 +1,9 @@
 # Data directory - Do NOT commit to Git
 /data/
 
+# Models trained
+/models/
+
 # Local configuration files
 *.local
 .env

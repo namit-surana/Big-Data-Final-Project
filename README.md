@@ -26,6 +26,9 @@ This project implements a real-time streaming pipeline for detecting malware in 
   ├── src/                   # Python scripts
   │   ├── producer.py        # Kafka producer (streams data)
   │   └── requirements.txt   # Python dependencies
+  ├── streamlit_app/         # Real-time Dashboard
+  │   ├── app.py
+  │   └── requirements.txt
   ├── .gitignore             # Ignores /data and local files
   ├── docker-compose.yaml    # Infrastructure definition
   └── README.md              # This file
@@ -138,20 +141,20 @@ All services are running in Docker containers:
 - `src/realtime_predictor.py` - Production streaming app
 
 ### Phase 7: Results Storage & Visualization
-**Status**: Not Started
+**Status**: Completed ✅
 
 **Tasks**:
-- [ ] Connect Spark to MongoDB
-- [ ] Store predictions with metadata
-- [ ] Create dashboard for monitoring:
-  - [ ] Attack type distribution
-  - [ ] Real-time alerts
-  - [ ] Model performance metrics
-- [ ] Export results for reporting
+- [x] Connect Spark to MongoDB
+- [x] Store predictions with metadata
+- [x] Create dashboard for monitoring:
+  - [x] Attack type distribution
+  - [x] Real-time alerts
+  - [x] Model performance metrics
+- [x] Export results for reporting
 
-**Files to Create**:
-- `notebooks/05_results_visualization.ipynb` - Dashboard
-- `notebooks/06_final_report.ipynb` - Project summary
+**Files Created**:
+- `notebooks/05_results_visualization.ipynb` - Analysis & Reporting
+- `streamlit_app/app.py` - Real-time Dashboard
 
 ### Phase 8: Testing & Optimization
 **Status**: Not Started
@@ -203,6 +206,13 @@ docker exec finalproject-kafka-1 kafka-console-consumer \
 2. Enter password: `nyucs`
 3. Navigate to `/work` to see your notebooks folder
 4. Access data at `/data` (mounted from local)
+
+### 6. Run the Dashboard
+```bash
+cd streamlit_app
+pip install -r requirements.txt
+streamlit run app.py
+```
 
 ---
 
@@ -266,7 +276,7 @@ Each message in Kafka has the following structure:
 | Feature Engineering | ✅ Complete | - |
 | Model Training | ✅ Complete | - |
 | Real-Time Prediction | ✅ Complete | - |
-| Visualization | 🔄 Next | 2-3 hours |
+| Visualization | ✅ Complete | - |
 | Testing & Optimization | ⏳ Pending | 2-3 hours |
 
 ---

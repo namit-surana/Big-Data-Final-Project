@@ -6,6 +6,7 @@ from pyspark.sql.functions import from_json, col, from_unixtime, hour, dayofweek
 from pyspark.sql.types import *
 from pyspark.ml import PipelineModel
 from pyspark.ml.classification import RandomForestClassificationModel
+from pymongo import MongoClient
 
 # Configure Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -58,19 +59,33 @@ def process_batch(batch_df, batch_id):
     if batch_df.count() == 0:
         return
 
-    # Write to MongoDB
+    # Write to MongoDB using pymongo (avoids Java connector binary incompatibility)
     try:
-        batch_df.select(
+        # Convert Spark DataFrame to Pandas for driver-side insertion
+        pdf = batch_df.select(
             "timestamp", 
             "id_orig_h", "id_orig_p", 
             "id_resp_h", "id_resp_p", 
             "proto", "prediction", "probability", 
             "predicted_label"
-        ).write \
-        .format("mongodb") \
-        .mode("append") \
-        .save()
-        logger.info("Batch written to MongoDB successfully.")
+        ).toPandas()
+        
+        if not pdf.empty:
+            # Connect to MongoDB
+            # Convert DenseVector to list for MongoDB serialization
+            pdf['probability'] = pdf['probability'].apply(lambda x: x.toArray().tolist() if hasattr(x, 'toArray') else x)
+
+            mongo_host = "mongo" if os.path.exists("/.dockerenv") else "localhost"
+            client = MongoClient(f"mongodb://{mongo_host}:27017")
+            db = client["iot_malware"]
+            collection = db["predictions"]
+            
+            # Convert DataFrame to dict records and insert
+            records = pdf.to_dict("records")
+            collection.insert_many(records)
+            client.close()
+            
+            logger.info(f"Batch {batch_id} written to MongoDB successfully ({len(records)} records).")
     except Exception as e:
         logger.error(f"Error writing to MongoDB: {e}")
 

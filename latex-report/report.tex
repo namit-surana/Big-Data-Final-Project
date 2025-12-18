@@ -16,13 +16,33 @@
 \titleformat{\subsection}
   {\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
-\title{Real-Time IoT Malware Detection Pipeline \ \large NYU Big Data Final Project}
-\author{Arsh Panesar (ap9332) \ Charlotte Xiu (yx2867) \ Namit Surana (ns6518) \ Yize Liu (yl7401)}
-\date{December 17, 2025}
-
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    \Huge
+    \textbf{Real-Time IoT Malware Detection Pipeline}
+    
+    \vspace{0.5cm}
+    \LARGE
+    NYU Big Data Final Project
+    
+    \vspace{1.5cm}
+    \large
+    \textbf{Arsh Panesar} (ap9332) \\
+    \textbf{Charlotte Xiu} (yx2867) \\
+    \textbf{Namit Surana} (ns6518) \\
+    \textbf{Yize Liu} (yl7401)
+    
+    \vfill
+    
+    \Large
+    December 17, 2025
+    
+    \vspace{0.8cm}
+\end{titlepage}
 \tableofcontents
 \newpage
 
@@ -84,7 +104,7 @@ Raw network data requires significant preprocessing to be suitable for machine l
 \begin{itemize}[leftmargin=*]
     \item \textbf{String Indexing}: Converting categorical variables like \texttt{proto} (protocol) and \texttt{conn\_state} (connection state) into numerical indices.
     \item \textbf{One-Hot Encoding}: Transforming indices into binary vectors to prevent ordinal relationships in categorical data.
-    \item \textbf{Vector Assembly}: Combining numerical features (e.g., \texttt{duration}, \texttt{orig\_bytes}, \texttt{resp\_bytes}) with encoded categorical vectors into a single feature vector.
+    \item \textbf{Vector Assembly}: Combining raw numerical features (e.g., \texttt{duration}, \texttt{orig\_bytes}, \texttt{resp\_bytes}) and derived features (e.g., \texttt{total\_bytes}, \texttt{bytes\_per\_sec}, \texttt{hour\_of\_day}) with encoded categorical vectors into a single feature vector.
     \item \textbf{Standard Scaling}: Normalizing features to ensure uniform contribution to the model.
 \end{itemize}
 
@@ -101,11 +121,20 @@ The pipeline demonstrated robust performance in processing high-velocity data st
 \end{itemize}
 
 \subsection{Real-Time Dashboard}
-To provide actionable insights, a real-time dashboard was developed using Streamlit, connecting directly to the MongoDB storage layer.
+To provide actionable insights, a real-time dashboard was developed using Streamlit, connecting directly to the MongoDB storage layer. Figure \ref{fig:dashboard} illustrates the dashboard interface during a live capture session.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{dashboard_screenshot.png}
+    \caption{Real-Time Streamlit Dashboard showing live traffic metrics and attack distribution.}
+    \label{fig:dashboard}
+\end{figure}
+
+This interface is designed to empower network administrators and security analysts by converting high-velocity data into actionable intelligence. Its utility lies in the following capabilities:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Live Monitoring}: Auto-refreshes at user-defined intervals to fetch the latest prediction records.
-    \item \textbf{Key Metrics}: Displays critical statistics such as total processed records and a breakdown of detected threats (Benign vs. Malicious).
-    \item \textbf{Visualizations}: Features interactive charts, including a time-series line chart for traffic volume and a bar chart for attack distribution, enabling immediate anomaly detection.
+    \item \textbf{Continuous Situational Awareness}: The dashboard auto-refreshes to fetch the latest predictions, allowing security teams to monitor the network's health in real-time without querying raw databases.
+    \item \textbf{Rapid Threat Assessment}: By displaying a breakdown of detected threats (Benign vs. Malicious), operators can instantly gauge the severity of ongoing attacks.
+    \item \textbf{Visual Anomaly Detection}: Interactive time-series charts allow analysts to visually correlate traffic spikes with malicious activity. This is crucial for identifying volumetric attacks (like DDoS) or scanning patterns that might otherwise be missed in textual logs, enabling faster incident response.
 \end{itemize}
 
 \section{Conclusion}

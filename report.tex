@@ -33,6 +33,31 @@ The project infrastructure is built upon a microservices architecture orchestrat
     \item \textbf{Visualization}: A Streamlit dashboard and Jupyter notebooks provide real-time monitoring and post-hoc analysis of the detected threats.
 \end{itemize}
 
+\section{Big Data Operations}
+The core of this project relies on the seamless integration of big data frameworks to handle the velocity and volume of IoT network traffic.
+
+\subsection{Apache Kafka for Data Ingestion}
+Apache Kafka serves as the backbone for data ingestion, providing a fault-tolerant and high-throughput message bus.
+\begin{itemize}
+    \item \textbf{Producer Implementation}: A custom Python producer reads historical CSV logs and replays them as a live stream. It injects a simulated timestamp (\texttt{timestamp\_simulated}) into each record to mimic real-time event generation.
+    \item \textbf{Serialization}: Data is serialized into JSON format before being pushed to the \texttt{network-traffic} topic, ensuring a schema-agnostic transport layer that decouples the data source from the consumer.
+\end{itemize}
+
+\subsection{Apache Spark Structured Streaming}
+Apache Spark is utilized for its distributed computing capabilities, enabling low-latency processing of the data stream.
+\begin{itemize}
+    \item \textbf{Micro-Batch Processing}: The system employs Spark Structured Streaming, which processes data in small micro-batches. This allows for high throughput while maintaining near real-time latency.
+    \item \textbf{Schema Enforcement}: To ensure data quality, a strict schema is applied to the incoming JSON stream. Malformed records are handled gracefully to prevent pipeline failures.
+    \item \textbf{ML Pipeline Integration}: The project leverages Spark MLlib's \texttt{PipelineModel}. The exact feature engineering steps (indexing, encoding, scaling) fitted during the training phase are applied to the streaming data. This ensures consistency between training and inference environments and eliminates training-serving skew.
+    \item \textbf{Checkpointing}: Spark's checkpointing mechanism is configured to save the state of the stream to a reliable storage. This ensures fault tolerance, allowing the application to recover from failures and continue processing from the last committed offset.
+\end{itemize}
+
+\subsection{Data Persistence Strategy}
+Processed results are stored in MongoDB, a NoSQL database chosen for its flexibility and write performance.
+\begin{itemize}
+    \item \textbf{Batch Insertion}: To optimize write throughput, the system aggregates predictions within each Spark micro-batch. These batches are converted to Pandas DataFrames and bulk-inserted into MongoDB using the \texttt{pymongo} driver, bypassing the overhead of individual record insertions.
+\end{itemize}
+
 \section{Methodology}
 
 \subsection{Data Ingestion}

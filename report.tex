@@ -1,0 +1,64 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Real-Time IoT Malware Detection Pipeline \\ \large NYU Big Data Final Project}
+\author{Arsh Panesar (ap9332) \\ Charlotte Xiu (yx2867) \\ Namit Surana (ns6518) \\ Yize Liu (yl7401)}
+\date{December 17, 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report details the design and implementation of a real-time streaming pipeline for detecting malware in Internet of Things (IoT) network traffic. Leveraging the CTU-IoT-Malware-Capture dataset, the system utilizes Apache Kafka for data ingestion, Apache Spark for distributed processing and machine learning, and MongoDB for result storage. The pipeline successfully processes network connection logs, applies feature engineering transformations, and employs a Gradient Boosting Tree (GBT) classifier to identify malicious activities with high precision. The system is fully containerized using Docker, ensuring reproducibility and scalability.
+\end{abstract}
+
+\section{Introduction}
+The proliferation of IoT devices has expanded the attack surface for cyber threats, necessitating robust and real-time security mechanisms. Traditional batch processing methods are often insufficient for detecting active attacks. This project aims to address this challenge by building a scalable, real-time malware detection pipeline using Big Data technologies.
+
+\section{System Architecture}
+The project infrastructure is built upon a microservices architecture orchestrated via Docker Compose. The key components include:
+
+\begin{itemize}
+    \item \textbf{Data Source}: The system simulates real-time network traffic using the CTU-IoT-Malware-Capture dataset.
+    \item \textbf{Message Broker (Kafka)}: A Python-based producer streams connection logs to a Kafka topic \texttt{network-traffic}, decoupling data generation from processing.
+    \item \textbf{Stream Processing (Spark)}: Apache Spark Structured Streaming consumes messages from Kafka, parses JSON data, and applies machine learning models in real-time.
+    \item \textbf{Storage (MongoDB)}: Predicted results, including probability scores and attack labels, are stored in a MongoDB database for persistence.
+    \item \textbf{Visualization}: A Streamlit dashboard and Jupyter notebooks provide real-time monitoring and post-hoc analysis of the detected threats.
+\end{itemize}
+
+\section{Methodology}
+
+\subsection{Data Ingestion}
+The raw dataset consists of labeled network connection logs (CSV format). A custom producer script reads these files and publishes them to Kafka, simulating a live network feed. Over 156,000 records were successfully streamed during the testing phase.
+
+\subsection{Feature Engineering}
+Raw network data requires significant preprocessing to be suitable for machine learning. The feature engineering pipeline, implemented in Spark MLlib, includes:
+\begin{itemize}
+    \item \textbf{String Indexing}: Converting categorical variables like \texttt{proto} (protocol) and \texttt{conn\_state} (connection state) into numerical indices.
+    \item \textbf{One-Hot Encoding}: Transforming indices into binary vectors to prevent ordinal relationships in categorical data.
+    \item \textbf{Vector Assembly}: Combining numerical features (e.g., \texttt{duration}, \texttt{orig\_bytes}, \texttt{resp\_bytes}) with encoded categorical vectors into a single feature vector.
+    \item \textbf{Standard Scaling}: Normalizing features to ensure uniform contribution to the model.
+\end{itemize}
+
+\subsection{Model Training}
+Two primary algorithms were evaluated: Random Forest and Gradient Boosting Trees (GBT). The models were trained on a batch-loaded subset of the data. The GBT model was selected as the final candidate for the real-time pipeline due to its superior performance in distinguishing between benign and malicious traffic.
+
+\section{Results}
+The pipeline demonstrated robust performance in processing high-velocity data streams. Key achievements include:
+\begin{itemize}
+    \item \textbf{End-to-End Latency}: The system processes records and generates predictions with minimal latency suitable for near real-time monitoring.
+    \item \textbf{Detection Capability}: The model successfully identifies various attack types present in the dataset.
+    \item \textbf{Scalability}: The use of Spark and Kafka allows the system to scale horizontally to handle increased data loads.
+\end{itemize}
+
+\section{Conclusion}
+This project successfully demonstrates the application of Big Data technologies for cybersecurity. By integrating Kafka, Spark, and Machine Learning, we created a scalable solution capable of detecting IoT malware in real-time. Future work could involve integrating more complex deep learning models and expanding the dashboard capabilities for granular threat analysis.
+
+\end{document}

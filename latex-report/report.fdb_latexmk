@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1766027365.51852 "/Users/hstark/Downloads/Big-Data-Final-Project/latex-report/report.tex" "report.pdf" "report" 1766027366.1615 0
-  "/Users/hstark/Downloads/Big-Data-Final-Project/latex-report/report.tex" 1766027365.27927 10267 3c87f68ef940be6c159b4493a6e2c2e1 ""
+["pdflatex"] 1766029418.39694 "/Users/hstark/Downloads/Big-Data-Final-Project/latex-report/report.tex" "report.pdf" "report" 1766029419.02242 0
+  "/Users/hstark/Downloads/Big-Data-Final-Project/latex-report/report.tex" 1766029408.15149 10291 ab905cddb05a8c26c0e606553c3f17ec ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -82,10 +82,10 @@
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "dashboard_screenshot.png" 1766026808.33631 231033 e3bd4d071768059f98919455521a7c25 ""
-  "report.aux" 1766027366.1121 2397 c91270b3a50159af2f4fc9d5b68b6c39 "pdflatex"
-  "report.out" 1766027366.11292 2669 26eb4a07e41d186f566e146c6127f951 "pdflatex"
-  "report.tex" 1766027365.27927 10267 3c87f68ef940be6c159b4493a6e2c2e1 ""
-  "report.toc" 1766027366.11313 1297 4b4dedbbacf35e64646b932cea6de1a9 "pdflatex"
+  "report.aux" 1766029418.97206 2397 c91270b3a50159af2f4fc9d5b68b6c39 "pdflatex"
+  "report.out" 1766029418.97288 2669 26eb4a07e41d186f566e146c6127f951 "pdflatex"
+  "report.tex" 1766029408.15149 10291 ab905cddb05a8c26c0e606553c3f17ec ""
+  "report.toc" 1766029418.9731 1297 4b4dedbbacf35e64646b932cea6de1a9 "pdflatex"
   (generated)
   "report.aux"
   "report.log"
